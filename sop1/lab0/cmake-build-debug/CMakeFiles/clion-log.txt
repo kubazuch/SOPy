@@ -1,4 +1,1 @@
-/home/samba/zuchowskij/Downloads/clion-2022.2.4/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/samba/zuchowskij/Downloads/clion-2022.2.4/bin/ninja/linux/ninja -G Ninja -S /home/samba/zuchowskij/sop/sop1/lab0 -B /home/samba/zuchowskij/sop/sop1/lab0/cmake-build-debug
--- Configuring done
--- Generating done
--- Build files have been written to: /home/samba/zuchowskij/sop/sop1/lab0/cmake-build-debug
+CMakeLists.txt not found in /home/samba/zuchowskij/sop/sop1/lab0 Select CMakeLists.txt

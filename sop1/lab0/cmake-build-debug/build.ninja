@@ -49,8 +49,8 @@ cmake_ninja_workdir = /home/samba/zuchowskij/sop/sop1/lab0/cmake-build-debug/
 
 build cmake_object_order_depends_target_lab0: phony || CMakeFiles/lab0.dir
 
-build CMakeFiles/lab0.dir/main.c.o: C_COMPILER__lab0_Debug /home/samba/zuchowskij/sop/sop1/lab0/main.c || cmake_object_order_depends_target_lab0
-  DEP_FILE = CMakeFiles/lab0.dir/main.c.o.d
+build CMakeFiles/lab0.dir/lab0.c.o: C_COMPILER__lab0_Debug /home/samba/zuchowskij/sop/sop1/lab0/lab0.c || cmake_object_order_depends_target_lab0
+  DEP_FILE = CMakeFiles/lab0.dir/lab0.c.o.d
   FLAGS = -g -std=gnu11
   OBJECT_DIR = CMakeFiles/lab0.dir
   OBJECT_FILE_DIR = CMakeFiles/lab0.dir
@@ -63,13 +63,44 @@ build CMakeFiles/lab0.dir/main.c.o: C_COMPILER__lab0_Debug /home/samba/zuchowski
 #############################################
 # Link the executable lab0
 
-build lab0: C_EXECUTABLE_LINKER__lab0_Debug CMakeFiles/lab0.dir/main.c.o
+build lab0: C_EXECUTABLE_LINKER__lab0_Debug CMakeFiles/lab0.dir/lab0.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/lab0.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = lab0
   TARGET_PDB = lab0.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target lab1
+
+
+#############################################
+# Order-only phony target for lab1
+
+build cmake_object_order_depends_target_lab1: phony || CMakeFiles/lab1.dir
+
+build CMakeFiles/lab1.dir/lab1.c.o: C_COMPILER__lab1_Debug /home/samba/zuchowskij/sop/sop1/lab0/lab1.c || cmake_object_order_depends_target_lab1
+  DEP_FILE = CMakeFiles/lab1.dir/lab1.c.o.d
+  FLAGS = -g -std=gnu11
+  OBJECT_DIR = CMakeFiles/lab1.dir
+  OBJECT_FILE_DIR = CMakeFiles/lab1.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target lab1
+
+
+#############################################
+# Link the executable lab1
+
+build lab1: C_EXECUTABLE_LINKER__lab1_Debug CMakeFiles/lab1.dir/lab1.c.o
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/lab1.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = lab1
+  TARGET_PDB = lab1.dbg
 
 
 #############################################
@@ -106,7 +137,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /home/samba/zuchowskij/sop/sop1/lab0/cmake-build-debug
 
-build all: phony lab0
+build all: phony lab0 lab1
 
 # =============================================================================
 # Built-in targets
