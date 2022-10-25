@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="CMakePresetLoader"><![CDATA[{
   "useNewFormat": true
 }]]></component>
@@ -17,7 +20,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f8b45e7-f5b4-485e-b05b-413989dec11f" name="Changes" comment="Lab0 commit" />
+    <list default="true" id="8f8b45e7-f5b4-485e-b05b-413989dec11f" name="Changes" comment="Lab0 commit">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sop1/lab0/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sop1/lab0/lab0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab0/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-86fad32ff1eab8bb78b9.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/.cmake/api/v1/reply/index-2022-10-25T13-52-59-0650.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/.cmake/api/v1/reply/target-lab0-Debug-d134320c5d7cf80fe45c.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/.ninja_deps" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/.ninja_log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab0/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/lab0.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -57,10 +73,14 @@
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Makefile Target.all">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
@@ -71,6 +91,21 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/sop1/lab0/Makefile" target="all" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.lab0" />
+      <item itemvalue="Makefile Target.all" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Makefile Target.all" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -80,7 +115,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1666705755887</updated>
-      <workItem from="1666705767314" duration="227000" />
+      <workItem from="1666705767314" duration="602000" />
     </task>
     <task id="LOCAL-00001" summary="Lab0 commit">
       <created>1666705933016</created>
