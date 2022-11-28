@@ -3,36 +3,32 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
   </component>
   <component name="CMakeRunConfigurationManager">
-    <generated />
+    <generated>
+      <config projectName="lab0/lab0" targetName="lab1.cs" />
+      <config projectName="lab0/lab0" targetName="lab1.example" />
+      <config projectName="lab0/lab0" targetName="lab1" />
+      <config projectName="lab0/lab0" targetName="lab0" />
+    </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
     <configurations>
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Linux" ENABLED="true" CONFIG_NAME="Debug" TOOLCHAIN_NAME="WSL" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f8b45e7-f5b4-485e-b05b-413989dec11f" name="Changes" comment="Basic Makefile">
-      <change afterPath="$PROJECT_DIR$/sop1/lab1/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sop1/lab1/lab1.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sop1/lab2/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sop1/lab3/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sop1/lab4/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+    <list default="true" id="8f8b45e7-f5b4-485e-b05b-413989dec11f" name="Changes" comment="Lab1 preparation">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sop1/lab0/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/CMakeFiles/rules.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab0/cmake-build-debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab0/lab0" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +38,7 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Linux" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -73,16 +69,20 @@
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "/home/samba/zuchowskij/sop/sop1/lab0",
+    "last_opened_file_path": "D:/Programowanie/Projekty/C/SOPy/sop1/lab1 tut/cs",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CMakeSettings"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1 tut\cs" />
+      <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1" />
+      <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1 tut\example lab1" />
       <recent name="$PROJECT_DIR$/sop1/lab0" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -90,18 +90,28 @@
       <recent name="$PROJECT_DIR$/sop1" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.lab0">
+  <component name="RunManager" selected="CMake Application.lab1.cs">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lab0" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab0/lab0" TARGET_NAME="lab0" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="lab0/lab0" RUN_TARGET_NAME="lab0">
+    <configuration name="lab0" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SOP1" TARGET_NAME="lab0" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SOP1" RUN_TARGET_NAME="lab0">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="lab1" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="lab0/lab0" TARGET_NAME="lab1" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="lab0/lab0" RUN_TARGET_NAME="lab1">
+    <configuration name="lab1" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SOP1" TARGET_NAME="lab1" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SOP1" RUN_TARGET_NAME="lab1">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="lab1.cs" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-n F -p /mnt/d/Down -p /home/kuzu -rs -o /home/kuzu/dir1/dir2/out.txt" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SOP1" TARGET_NAME="lab1.cs" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SOP1" RUN_TARGET_NAME="lab1.cs">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="lab1.example" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SOP1" TARGET_NAME="lab1.example" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SOP1" RUN_TARGET_NAME="lab1.example">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -121,6 +131,8 @@
     <list>
       <item itemvalue="CMake Application.lab0" />
       <item itemvalue="CMake Application.lab1" />
+      <item itemvalue="CMake Application.lab1.cs" />
+      <item itemvalue="CMake Application.lab1.example" />
       <item itemvalue="Makefile Target.clean" />
       <item itemvalue="Makefile Target.all" />
     </list>
@@ -140,6 +152,16 @@
       <option name="presentableId" value="Default" />
       <updated>1666705755887</updated>
       <workItem from="1666705767314" duration="1344000" />
+      <workItem from="1668449869685" duration="413000" />
+      <workItem from="1668463996241" duration="6866000" />
+      <workItem from="1668513922914" duration="5063000" />
+      <workItem from="1668692680646" duration="720000" />
+      <workItem from="1668878229125" duration="1163000" />
+      <workItem from="1669207684257" duration="1382000" />
+      <workItem from="1669327866473" duration="682000" />
+      <workItem from="1669595969244" duration="3000" />
+      <workItem from="1669596088768" duration="11000" />
+      <workItem from="1669596360919" duration="10961000" />
     </task>
     <task id="LOCAL-00001" summary="Lab0 commit">
       <created>1666705933016</created>
@@ -155,7 +177,21 @@
       <option name="project" value="LOCAL" />
       <updated>1666706411595</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Some basic utils">
+      <created>1668878508611</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1668878508611</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Lab1 preparation">
+      <created>1669607245282</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1669607245282</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +212,24 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Lab0 commit" />
     <MESSAGE value="Basic Makefile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Basic Makefile" />
+    <MESSAGE value="Some basic utils" />
+    <MESSAGE value="Lab1 preparation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lab1 preparation" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/sop1/lab1 tut/cs/progrum.c</url>
+          <line>75</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/sop1/lab1 tut/cs/progrum.c</url>
+          <line>100</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

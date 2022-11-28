@@ -1,0 +1,3 @@
+[submodule "sub/sop"]
+	path = sub/sop
+	url = https://github.com/jmichalak9/sop

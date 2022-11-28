@@ -3,4 +3,9 @@
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$/sop1">
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
+  <component name="CidrRootsConfiguration">
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/sop1/lab0/cmake-build-debug" />
+    </excludeRoots>
+  </component>
 </project>

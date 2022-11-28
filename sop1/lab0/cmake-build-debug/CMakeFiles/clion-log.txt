@@ -1,1 +1,0 @@
-CMakeLists.txt not found in /home/samba/zuchowskij/sop/sop1/lab0 Select CMakeLists.txt

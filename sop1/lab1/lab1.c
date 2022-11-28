@@ -1,17 +1,14 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
-int main() {
-    int x = 0;
-    int i;
-    int arr[1];
-    printf("Hello, World!\n");
+extern char **environ;
 
-    for(i = 0; i < 100; ++i)
-        x += i;
-
-    arr[1] = 2;
-
-    printf("Sum: %d\n", x);
-
-    return 0;
+int main(int argc, char **argv)
+{
+    int index = 0;
+    while (environ[index])
+        printf("%s\n", environ[index++]);
+    return EXIT_SUCCESS;
 }

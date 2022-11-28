@@ -1,4 +1,0 @@
-/home/samba/zuchowskij/sop/sop1/lab0/cmake-build-debug/CMakeFiles/lab0.dir
-/home/samba/zuchowskij/sop/sop1/lab0/cmake-build-debug/CMakeFiles/lab1.dir
-/home/samba/zuchowskij/sop/sop1/lab0/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/samba/zuchowskij/sop/sop1/lab0/cmake-build-debug/CMakeFiles/rebuild_cache.dir
