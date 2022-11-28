@@ -5,4 +5,6 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(lab0 lab0/lab0.c)
 add_executable(lab1 lab1/lab1.c)
+add_executable(lab1.example "lab1 tut/example/lister.c")
+add_executable(lab1.cs lab1\ tut/cs/progrum.c)
 add_compile_options(-Wall -fsanitize=address,undefined -ansi -pedantic)

@@ -98,4 +98,10 @@ double randrange(double min, double max)
 {
     return min + (double)rand() / ((double) RAND_MAX / (max - min));
 }
+
+/// String utils
+int startswith(const char *pre, const char *str)
+{
+    return strncmp(pre, str, strlen(pre)) == 0;
+}
 #endif
