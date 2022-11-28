@@ -1,3 +1,6 @@
 [submodule "sub/sop"]
 	path = sub/sop
 	url = https://github.com/jmichalak9/sop
+[submodule "sub/sop1"]
+	path = sub/sop1
+	url = https://gitlab.com/SaQQ/sop1
