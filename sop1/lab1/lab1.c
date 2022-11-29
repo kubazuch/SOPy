@@ -1,22 +1,25 @@
 #include "utils.h"
 
 #define MAX_PATH 100
+#define MAX_SUBDIRS 20
 
-void flagrep() {
-    fprintf(stderr, "INVALID FLAG REPETITION");
+void flagrep(char *name) {
+    fprintf(stderr, "%s: INVALID FLAG REPETITION\n", name);
     exit(1);
 }
 
-void flagmal() {
-    fprintf(stderr, "INVALID FLAG REPETITION");
-    exit(1);
+void flagmal(char *name) {
+    fprintf(stderr, "%s: Malformed flags!\n", name);
+    ERR("getopt");
 }
 
-void list_dir(char *dirName) {
+void list_dir(char *dirName, int recursive, FILE* output) {
     DIR *dirp;
     struct dirent *dp;
     struct stat filestat;
     char path[MAX_PATH];
+    char *subdirs[MAX_SUBDIRS];
+    int subdir_cnt = 0;
 
     if (NULL == (dirp = opendir(dirName))) {
         if (errno == ENOENT) {
@@ -30,15 +33,15 @@ void list_dir(char *dirName) {
         ERR("opendir");
     }
 
-    printf("%s:\n", dirName);
+    fprintf(output, "%s:\n", dirName);
     do {
         errno = 0;
         if ((dp = readdir(dirp)) != NULL) {
+
             if (dp->d_name[0] == '.')
                 continue;
 
-            if(snprintf(path, MAX_PATH, "%s/%s", dirName, dp->d_name) >= MAX_PATH)
-            {
+            if (snprintf(path, MAX_PATH, "%s/%s", dirName, dp->d_name) >= MAX_PATH) {
                 fprintf(stderr, "Path too long: %s\n", path);
                 continue;
             }
@@ -46,11 +49,14 @@ void list_dir(char *dirName) {
             if (lstat(path, &filestat))
                 ERR("lstat");
 
+            if (recursive && S_ISDIR(filestat.st_mode) && subdir_cnt < MAX_SUBDIRS)
+                subdirs[subdir_cnt++] = strdup(path);
+
             char *type = S_ISREG(filestat.st_mode) ? "file" :
                         (S_ISDIR(filestat.st_mode) ? "directory" :
                         (S_ISLNK(filestat.st_mode) ? "link" : "other"));
 
-            printf("%s - type: %s, size: %ld\n", dp->d_name, type, filestat.st_size);
+            fprintf(output, "%s - type: %s, size: %ld\n", dp->d_name, type, filestat.st_size);
         }
     } while (dp != NULL);
 
@@ -59,38 +65,46 @@ void list_dir(char *dirName) {
     if (closedir(dirp))
         ERR("closedir");
 
-    printf("\n");
+    fprintf(output, "\n");
+
+    for (int i = 0; i < subdir_cnt; i++) {
+        list_dir(subdirs[i], recursive, output);
+        free(subdirs[i]);
+    }
 }
 
 int main(int argc, char **argv) {
     char c;
     int anyp = 0;
     int recursive = 0;
-    char *output = NULL;
+    FILE *output = stdout;
 
     while ((c = getopt(argc, argv, "p:ro:")) != -1) {
         switch (c) {
             case 'o':
-                if (output)
-                    flagrep();
-                output = optarg;
+                if (output != stdout)
+                    flagrep(argv[0]);
+                if (!(output = fopen(optarg, "w"))) {
+                    fprintf(stderr, "%s: %s: No such file or directory.\n", argv[0], optarg);
+                    return 1;
+                }
                 break;
             case 'p':
                 anyp = 1;
                 break;
             case 'r':
                 if (recursive)
-                    flagrep();
+                    flagrep(argv[0]);
                 recursive = 1;
                 break;
             case '?':
             default:
-                flagmal();
+                flagmal(argv[0]);
         }
     }
 
-    if(!anyp) {
-        list_dir(".");
+    if (!anyp) {
+        list_dir(".", recursive, output);
         return EXIT_SUCCESS;
     }
 
@@ -98,14 +112,14 @@ int main(int argc, char **argv) {
     while ((c = getopt(argc, argv, "p:ro:")) != -1) {
         switch (c) {
             case 'p':
-                list_dir(optarg);
+                list_dir(optarg, recursive, output);
                 break;
             case 'o':
             case 'r':
                 break;
             case '?':
             default:
-                flagmal();
+                flagmal(argv[0]);
         }
     }
 
