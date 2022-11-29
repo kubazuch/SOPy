@@ -15,6 +15,7 @@
       <config projectName="SOP1" targetName="lab1.cs" />
       <config projectName="SOP1" targetName="lab1" />
       <config projectName="SOP1" targetName="lab1.cs2" />
+      <config projectName="SOP1" targetName="lab1.isi" />
       <config projectName="SOP1" targetName="lab0" />
     </generated>
   </component>
@@ -25,14 +26,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f8b45e7-f5b4-485e-b05b-413989dec11f" name="Changes" comment="SOP1 submodule">
-      <change afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs2/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs2/jugoslawiec.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs2/utils.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="8f8b45e7-f5b4-485e-b05b-413989dec11f" name="Changes" comment="Lab 1 CS round 2">
+      <change afterPath="$PROJECT_DIR$/sop1/lab1 tut/isi/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sop1/lab1 tut/isi/libra.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sop1/lab1 tut/isi/utils.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sop1/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sop1/lab1 tut/cs/progrum.c" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs/progrum.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab1 tut/cs2/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs2/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab1 tut/cs2/jugoslawiec.c" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs2/jugoslawiec.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +74,7 @@
     "WebServerToolWindowFactoryState": "false",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "D:/Programowanie/Projekty/C/SOPy/sop1/lab1 tut/cs2",
+    "last_opened_file_path": "D:/Programowanie/Projekty/C/SOPy/sop1/lab1 tut/isi",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -84,18 +85,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1 tut\isi" />
       <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1 tut\cs2" />
       <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1 tut\cs" />
       <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1" />
       <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1 tut\example lab1" />
-      <recent name="$PROJECT_DIR$/sop1/lab0" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/sop1/lab1" />
       <recent name="$PROJECT_DIR$/sop1" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.lab1.cs2">
+  <component name="RunManager" selected="CMake Application.lab1.isi">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
@@ -129,6 +130,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="lab1.isi" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="stats" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SOP1" TARGET_NAME="lab1.isi" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SOP1" RUN_TARGET_NAME="lab1.isi">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="all" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/sop1/lab0/Makefile" target="all" workingDirectory="" arguments="">
         <envs />
@@ -147,6 +153,7 @@
       <item itemvalue="CMake Application.lab1.cs" />
       <item itemvalue="CMake Application.lab1.cs2" />
       <item itemvalue="CMake Application.lab1.example" />
+      <item itemvalue="CMake Application.lab1.isi" />
       <item itemvalue="Makefile Target.clean" />
       <item itemvalue="Makefile Target.all" />
     </list>
@@ -177,7 +184,7 @@
       <workItem from="1669596088768" duration="11000" />
       <workItem from="1669596360919" duration="12252000" />
       <workItem from="1669633566137" duration="3878000" />
-      <workItem from="1669647374754" duration="6560000" />
+      <workItem from="1669647374754" duration="11324000" />
     </task>
     <task id="LOCAL-00001" summary="Lab0 commit">
       <created>1666705933016</created>
@@ -221,7 +228,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669608501336</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Lab 1 CS round 2">
+      <created>1669681625993</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1669681625993</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,7 +259,8 @@
     <MESSAGE value="Some basic utils" />
     <MESSAGE value="Lab1 preparation" />
     <MESSAGE value="SOP1 submodule" />
-    <option name="LAST_COMMIT_MESSAGE" value="SOP1 submodule" />
+    <MESSAGE value="Lab 1 CS round 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lab 1 CS round 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

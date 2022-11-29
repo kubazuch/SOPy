@@ -15,7 +15,7 @@ void usage(char *pname) {
 }
 
 int maxdepth;
-char *extention;
+char *extension;
 FILE *out;
 
 int visit(const char *path, const struct stat *s, int type, struct FTW *f)
@@ -29,7 +29,7 @@ int visit(const char *path, const struct stat *s, int type, struct FTW *f)
         return 0;
 
     const char *ext = strrchr(name, '.');
-    if(extention && ext && strcmp(extention, ext+1) == 0)
+    if(extension && ext && strcmp(extension, ext + 1) == 0)
         return 0;
 
     switch (type)
@@ -49,7 +49,7 @@ int visit(const char *path, const struct stat *s, int type, struct FTW *f)
 int main(int argc, char **argv) {
     char c;
     out = stdout;
-    extention = NULL;
+    extension = NULL;
     char *output = NULL;
     maxdepth = 0;
 
@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
                 maxdepth = strtol(optarg, NULL, 10);
                 break;
             case 'e':
-                extention = optarg;
+                extension = optarg;
                 break;
             case '?':
             default:

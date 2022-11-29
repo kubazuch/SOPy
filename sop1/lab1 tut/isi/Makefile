@@ -1,4 +1,4 @@
-LAB=jugoslawiec
+LAB=libra
 all: $(LAB)
 $(LAB): $(LAB).c
 	gcc -Wall -fsanitize=address,undefined -o $(LAB) $(LAB).c
