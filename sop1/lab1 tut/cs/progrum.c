@@ -45,10 +45,8 @@ void list_dir(FILE *out, char *dirName, char* prefix, int recursive, int symlink
                 return;
             }
 
-            if (symlinks ? stat(path, &filestat) : lstat(path, &filestat)) {
-                fprintf(stderr, "%s\n", path);
+            if (symlinks ? stat(path, &filestat) : lstat(path, &filestat))
                 ERR("lstat");
-            }
 
             if (recursive && S_ISDIR(filestat.st_mode))
             {

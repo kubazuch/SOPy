@@ -14,6 +14,7 @@
       <config projectName="SOP1" targetName="lab1.example" />
       <config projectName="SOP1" targetName="lab1.cs" />
       <config projectName="SOP1" targetName="lab1" />
+      <config projectName="SOP1" targetName="lab1.cs2" />
       <config projectName="SOP1" targetName="lab0" />
     </generated>
   </component>
@@ -24,12 +25,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f8b45e7-f5b4-485e-b05b-413989dec11f" name="Changes" comment="Lab1 preparation">
-      <change afterPath="$PROJECT_DIR$/sub/sop1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8f8b45e7-f5b4-485e-b05b-413989dec11f" name="Changes" comment="SOP1 submodule">
+      <change afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs2/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs2/jugoslawiec.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs2/utils.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sop1/lab1 tut/cs/progrum.c" beforeDir="false" afterPath="$PROJECT_DIR$/sop1/lab1 tut/cs/progrum.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,28 +62,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Programowanie/Projekty/C/SOPy/sop1/lab1 tut/cs&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;CMakeSettings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "last_opened_file_path": "D:/Programowanie/Projekty/C/SOPy/sop1/lab1 tut/cs2",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CMakeSettings"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1 tut\cs2" />
       <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1 tut\cs" />
       <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1" />
       <recent name="D:\Programowanie\Projekty\C\SOPy\sop1\lab1 tut\example lab1" />
@@ -91,7 +95,7 @@
       <recent name="$PROJECT_DIR$/sop1" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.lab1.cs">
+  <component name="RunManager" selected="CMake Application.lab1.cs2">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
@@ -108,6 +112,14 @@
       </method>
     </configuration>
     <configuration name="lab1.cs" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-n F -p /mnt/d/Down -p /home/kuzu -rs -o /home/kuzu/dir1/dir2/out.txt" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SOP1" TARGET_NAME="lab1.cs" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SOP1" RUN_TARGET_NAME="lab1.cs">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="lab1.cs2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-p /home/kuzu -d 2 -e jugo -p /mnt/d/Down -o" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="SOP1" TARGET_NAME="lab1.cs2" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="SOP1" RUN_TARGET_NAME="lab1.cs2">
+      <envs>
+        <env name="L1_OUTPUTFILE" value="/home/kuzu/dir2/apok.txt" />
+      </envs>
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -133,6 +145,7 @@
       <item itemvalue="CMake Application.lab0" />
       <item itemvalue="CMake Application.lab1" />
       <item itemvalue="CMake Application.lab1.cs" />
+      <item itemvalue="CMake Application.lab1.cs2" />
       <item itemvalue="CMake Application.lab1.example" />
       <item itemvalue="Makefile Target.clean" />
       <item itemvalue="Makefile Target.all" />
@@ -162,7 +175,9 @@
       <workItem from="1669327866473" duration="682000" />
       <workItem from="1669595969244" duration="3000" />
       <workItem from="1669596088768" duration="11000" />
-      <workItem from="1669596360919" duration="11988000" />
+      <workItem from="1669596360919" duration="12252000" />
+      <workItem from="1669633566137" duration="3878000" />
+      <workItem from="1669647374754" duration="6560000" />
     </task>
     <task id="LOCAL-00001" summary="Lab0 commit">
       <created>1666705933016</created>
@@ -199,7 +214,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669607508488</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="SOP1 submodule">
+      <created>1669608501336</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1669608501336</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,19 +244,20 @@
     <MESSAGE value="Basic Makefile" />
     <MESSAGE value="Some basic utils" />
     <MESSAGE value="Lab1 preparation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lab1 preparation" />
+    <MESSAGE value="SOP1 submodule" />
+    <option name="LAST_COMMIT_MESSAGE" value="SOP1 submodule" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sop1/lab1 tut/cs/progrum.c</url>
-          <line>75</line>
+          <line>73</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/sop1/lab1 tut/cs/progrum.c</url>
-          <line>100</line>
+          <line>98</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
