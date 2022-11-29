@@ -105,8 +105,7 @@ int startswith(const char *pre, const char *str) {
 
 int endswithext(char *name, char *extension) {
     const char *ext = strrchr(name, '.');
-    if (extension && ext && strcmp(extension, ext + 1) == 0)
-        return 0;
+    return ext && strcmp(extension, ext + 1) == 0;
 }
 
 #endif
