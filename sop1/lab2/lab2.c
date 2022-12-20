@@ -13,10 +13,12 @@ void child_work(sigset_t oldmask) {
     printf("[%d] child created\n", getpid());
     while(1) {
         last_signal = 0;
-        while (last_signal != SIGQUIT)
+        while (last_signal != SIGQUIT && last_signal != SIGINT)
             sigsuspend(&oldmask);
+        if (last_signal == SIGINT)
+            printf("[%d] child SIGINT\n", getpid());
 
-        if (last_signal == SIGQUIT){
+        if (last_signal == SIGQUIT) {
             printf("[%d] child SIGQUIT\n", getpid());
             exit(EXIT_SUCCESS);
         }
@@ -56,18 +58,22 @@ int main(int argc, char **argv) {
     set_handler(sig_handler, SIGINT);
     set_handler(sig_handler, SIGQUIT);
 
-    sigset_t mask;
-    sigprocmask(SIG_BLOCK, NULL, &mask);
+    sigset_t mask, oldmask;
+    sigemptyset(&mask);
+    sigaddset(&mask, SIGUSR1);
+    sigaddset(&mask, SIGINT);
+    sigaddset(&mask, SIGQUIT);
+    sigprocmask(SIG_BLOCK, &mask, &oldmask);
 
     while(1) {
         last_signal = 0;
         while(last_signal != SIGUSR1 && last_signal != SIGINT)
-            sigsuspend(&mask);
+            sigsuspend(&oldmask);
         if (last_signal == SIGUSR1) {
             if (curr_last == N)
                 fprintf(stderr, "Cannot create a new process!\n");
             else
-                create_child(mask, pids);
+                create_child(oldmask, pids);
         } else if (last_signal == SIGINT) {
             if (curr_last == 0)
                 fprintf(stderr, "There is no process to kill!\n");
