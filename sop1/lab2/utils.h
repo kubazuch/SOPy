@@ -38,6 +38,14 @@ int safesleep(struct timespec ts)
     return res;
 }
 
+int sleepms(unsigned milisec)
+{
+    time_t sec = (int) (milisec/1000);
+    milisec -= sec * 1000;
+    struct timespec req = {sec, milisec * 1e6};
+    return safesleep(req);
+}
+
 void set_handler( void (*f)(int), int sigNo) {
     struct sigaction act;
     memset(&act, 0, sizeof(struct sigaction));
