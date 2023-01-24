@@ -25,7 +25,7 @@ extern char *optarg;
 extern int opterr, optind, optopt;
 
 /// Logging utils
-#define ERR(source) (perror(source), fprintf(stderr, "%s:%d\n", __FILE__, __LINE__), kill(0, SIGKILL), exit(EXIT_FAILURE))
+#define ERR(source) (perror(source), fprintf(stderr, "%s:%d\n", __FILE__, __LINE__), exit(EXIT_FAILURE))
 
 #define PUTENV(string) if (putenv(string) != 0) perror("putenv")
 
@@ -124,6 +124,29 @@ double randdouble() {
  */
 double randrange(double min, double max) {
     return min + (double) rand() / ((double) RAND_MAX / (max - min));
+}
+
+/*
+ * Returns random integer in the range [min, max]
+ *
+ * Uses rand(), so remember to use srand()!
+ */
+int randint_r(uint *seed, int min, int max) {
+    return min + rand_r(seed) / (RAND_MAX / (max - min + 1) + 1);
+}
+
+/*
+ * Returns random double between [0, 1]
+ */
+double randdouble_r(uint *seed) {
+    return (double) rand_r(seed) / (double) RAND_MAX;
+}
+
+/*
+ * Returns random double between [min, max]
+ */
+double randrange_r(uint *seed, double min, double max) {
+    return min + (double) rand_r(seed) / ((double) RAND_MAX / (max - min));
 }
 
 /// String utils
