@@ -20,7 +20,10 @@ add_executable(lab2.cs "lab2 tut/cs/lab.c")
 add_executable(lab3.tut "lab3 tut/tut/sighand.c")
 add_executable(lab3.cs "lab3 tut/cs/main.c")
 
+add_executable(lab4.tut "lab4 tut/tut/prog.c")
+
 add_compile_options(-Wall -fsanitize=address,undefined -ansi -pedantic)
 
 target_link_libraries(lab3.tut m pthread)
 target_link_libraries(lab3.cs m pthread)
+target_link_libraries(lab4.tut m pthread rt)
