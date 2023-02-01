@@ -13,9 +13,11 @@
 #include <unistd.h>
 #include <math.h>
 
-#define BUFFERS 1
+#define BUFFERS 3
+#define LEN 8
 
 #define ERR(source) (perror(source), fprintf(stderr, "%s:%d\n", __FILE__, __LINE__), exit(EXIT_FAILURE))
+#define SHIFT(counter, x) ((counter + x) % BUFFERS)
 
 char convert(char a, char b, char c) {
     switch (a) {
@@ -30,7 +32,7 @@ char convert(char a, char b, char c) {
             return b;
     }
 
-    printf("Invalid char sequence: %c%c%c\n", a,b,c);
+    printf("Invalid char sequence: %c%c%c\n", a, b, c);
     exit(1);
 }
 
@@ -47,7 +49,7 @@ void usage(char *progname) {
 }
 
 void cleanup(char **buffers, int out) {
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < BUFFERS; i++)
         free(buffers[i]);
     if (TEMP_FAILURE_RETRY(fsync(out)) == -1)
         ERR("fsync");
@@ -71,33 +73,76 @@ int suspend(struct aiocb *aiocbs) {
     return ret;
 }
 
-void fillaiostruct(struct aiocb *aiocbs, char *buffer, int fd, int blocksize) {
-    memset(aiocbs, 0, sizeof(struct aiocb));
-    aiocbs->aio_fildes = fd;
-    aiocbs->aio_offset = 0;
-    aiocbs->aio_nbytes = blocksize;
-    aiocbs->aio_buf = (void *) buffer;
-    aiocbs->aio_sigevent.sigev_notify = SIGEV_NONE;
+void fillaiostruct(struct aiocb *aiocbs, char **buffer, int fd, int blocksize) {
+    for (int i = 0; i < BUFFERS; i++) {
+        memset(&aiocbs[i], 0, sizeof(struct aiocb));
+        aiocbs[i].aio_fildes = fd;
+        aiocbs[i].aio_offset = 0;
+        aiocbs[i].aio_nbytes = blocksize;
+        aiocbs[i].aio_buf = (void *) buffer[i];
+        aiocbs[i].aio_sigevent.sigev_notify = SIGEV_NONE;
+    }
 }
 
-void work(struct aiocb *aiocbs, char **buffer, int bsize) {
-    aio_read(&aiocbs[0]);
-    suspend(&aiocbs[0]);
+void readdata(struct aiocb *aiocbs, off_t offset, int in) {
+    aiocbs->aio_offset = offset;
+    aiocbs->aio_fildes = in;
+    if (aio_read(aiocbs) == -1)
+        ERR("Cannot read");
+}
 
-    buffer[0][0] = '-';
-    buffer[0][bsize+1] = '-';
-    buffer[0][bsize+2] = '-';
-    for (int i = 0; i <= bsize; i++){
-        buffer[1][i] = convert(buffer[0][i],buffer[0][i+1],buffer[0][i+2]);
+void writedata(struct aiocb *aiocbs, off_t offset, int out) {
+    aiocbs->aio_offset = offset;
+    aiocbs->aio_fildes = out;
+    if (aio_write(aiocbs) == -1)
+        ERR("Cannot write");
+}
+
+void syncdata(struct aiocb *aiocbs) {
+    suspend(aiocbs);
+    if (aio_fsync(O_SYNC, aiocbs) == -1)
+        ERR("Cannot sync\n");
+    suspend(aiocbs);
+}
+
+void work(struct aiocb *aiocbs, char **buffer, int in, int out, int count) {
+    int curpos = 0;
+    char *tmp = malloc(9 * sizeof(char));
+    int cnt;
+    readdata(&aiocbs[1], 0, in);
+    cnt = suspend(&aiocbs[1]);
+    int off = 8;
+    for (int j = 0; j < count; j++) {
+        if (j > 0)
+            writedata(&aiocbs[curpos], off, out);
+        if (j < count - 1)
+            readdata(&aiocbs[SHIFT(curpos, 2)], off + 8, in);
+
+        int working = SHIFT(curpos, 1);
+        tmp[0] = convert('-', buffer[working][0], buffer[working][1]);
+        tmp[9] = convert(buffer[working][cnt - 1], '-', '-');
+        for (int i = 0; i < cnt; i++) {
+            tmp[i + 1] = convert(buffer[working][i], buffer[working][i + 1], buffer[working][i + 2]);
+        }
+
+        memcpy(buffer[working], tmp, cnt);
+
+        if (j > 0)
+            syncdata(&aiocbs[curpos]);
+        if (j < count - 1)
+            cnt = suspend(&aiocbs[SHIFT(curpos, 2)]);
+        curpos = SHIFT(curpos, 1);
+        off += 8;
     }
+    writedata(&aiocbs[curpos], off, out);
+    suspend(&aiocbs[curpos]);
 
-    aio_write(&aiocbs[1]);
-    suspend(&aiocbs[1]);
+    free(tmp);
 }
 
 int main(int argc, char *argv[]) {
-    char *inname, *outname, *buffer[2];
-    struct aiocb aiocbs[2];
+    char *inname, *outname, *buffer[BUFFERS];
+    struct aiocb aiocbs[BUFFERS];
     int in, out;
 
     if (argc != 3)
@@ -109,17 +154,15 @@ int main(int argc, char *argv[]) {
         ERR("open");
     if ((out = TEMP_FAILURE_RETRY(open(outname, O_WRONLY | O_CREAT, 0644))) == -1)
         ERR("open");
-    int len = getfilelength(in);
-    //int blocks = ceil(getfilelength(in) / 8.0);
-    //fprintf(stderr, "Blocks: %d\n", blocks);
 
-    for (int i = 0; i < 2; i++)
-        if ((buffer[i] = (char *) calloc(len+3, sizeof(char))) == NULL)
+    int blocks = ceil(getfilelength(in) / 8.0);
+
+    for (int i = 0; i < BUFFERS; i++)
+        if ((buffer[i] = (char *) calloc(LEN, sizeof(char))) == NULL)
             ERR("calloc");
-    fillaiostruct(&aiocbs[0], buffer[0]+1, in, len);
-    fillaiostruct(&aiocbs[1], buffer[1], out, len+1);
+    fillaiostruct(aiocbs, buffer, in, LEN);
 
-    work(aiocbs, buffer, len);
+    work(aiocbs, buffer, in, out, blocks);
 
     cleanup(buffer, out);
     if (TEMP_FAILURE_RETRY(close(in)) == -1)
