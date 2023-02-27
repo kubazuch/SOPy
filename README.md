@@ -1,2 +1,2 @@
 # SOPy
-Repo przedmiotu Systemy Operacyjne z wydziału MiNI PW
+Repository of the Operating Systems 1 & 2 courses at the MiNI WUT faculty
