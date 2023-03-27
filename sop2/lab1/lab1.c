@@ -9,35 +9,54 @@ void usage(char *name)
     exit(EXIT_FAILURE);
 }
 
-void child_work(int i, int *fd)
+void child_work(int n, int *fd)
 {
+    srand(getpid());
+    char old_buf[MSG_SIZE];
     char buf[MSG_SIZE];
+    int count;
 
-    if (TEMP_FAILURE_RETRY(read(fd[0], buf, MSG_SIZE)) < 0)
-        ERR("read data from R");
-    printf("[%d] Node %d got message %s\n", getpid(), i, buf);
+    for(;;) {
+        if ((count = TEMP_FAILURE_RETRY(read(fd[0], old_buf, MSG_SIZE))) < 0)
+            ERR("read data from R");
 
-    int count = snprintf(buf, MSG_SIZE, "message");
-    if (count < MSG_SIZE)
-        memset(buf + count, 0, MSG_SIZE - count);
-    if (write(fd[1], buf, MSG_SIZE) < 0)
-        ERR("write to R");
+        if(old_buf[MSG_SIZE - 1] == '\0')
+            count = strlen(old_buf);
+
+        int i = rand() % count;
+        int j = rand() % count;
+
+        memcpy(buf, old_buf, MSG_SIZE);
+        buf[i] = old_buf[j];
+        buf[j] = old_buf[i];
+
+        printf("[%d] Node %d got message %s and sending %s\n", getpid(), n, old_buf, buf);
+
+
+        if (write(fd[1], buf, MSG_SIZE) < 0)
+            ERR("write to R");
+    }
 }
 
 void parent_work(int *fd)
 {
-    printf("[%d] Sending\n", getpid());
-    char buf[MSG_SIZE];
-    int count = snprintf(buf, MSG_SIZE, "message");
-    if (count < MSG_SIZE)
-        memset(buf + count, 0, MSG_SIZE - count);
+    char buf[MSG_SIZE + 1];
+    for(;;) {
+        fgets(buf, MSG_SIZE + 1, stdin);
+        buf[strcspn(buf, "\n")] = 0;
+        int count = strlen(buf);
 
-    if (write(fd[1], buf, MSG_SIZE) < 0)
-        ERR("write to R");
+        if (count < MSG_SIZE)
+            memset(buf + count, 0, MSG_SIZE - count);
 
-    if (TEMP_FAILURE_RETRY(read(fd[0], buf, MSG_SIZE)) < MSG_SIZE)
-        ERR("read data from R");
-    printf("[%d] Node %d got message %s\n", getpid(), 0, buf);
+        printf("[%d] Sending %s\n", getpid(), buf);
+        if (write(fd[1], buf, MSG_SIZE) < 0)
+            ERR("write to R");
+
+        if (TEMP_FAILURE_RETRY(read(fd[0], buf, MSG_SIZE)) < MSG_SIZE)
+            ERR("read data from R");
+        printf("[%d] Node %d got message %s\n", getpid(), 0, buf);
+    }
 }
 
 void create_children_and_pipes(int n, int *fds, int *R)
@@ -98,7 +117,7 @@ int main(int argc, char **argv)
 
     if (TEMP_FAILURE_RETRY(close(fds[1])))
         ERR("close");
-    if (TEMP_FAILURE_RETRY(close(fds[2*(n-1)])))
+    if (TEMP_FAILURE_RETRY(close(fds[2*n])))
         ERR("close");
     free(fds);
     return EXIT_SUCCESS;
