@@ -32,7 +32,6 @@ void child_work(int n, int *fd)
 
         printf("[%d] Node %d got message %s and sending %s\n", getpid(), n, old_buf, buf);
 
-
         if (write(fd[1], buf, MSG_SIZE) < 0)
             ERR("write to R");
     }
@@ -41,10 +40,16 @@ void child_work(int n, int *fd)
 void parent_work(int *fd)
 {
     char buf[MSG_SIZE + 1];
+    int fifo;
+
+    if ((fifo = open("bus.fifo", O_RDONLY)) < 0)
+        ERR("open");
+
+    int count;
     for(;;) {
-        fgets(buf, MSG_SIZE + 1, stdin);
+        if ((count = TEMP_FAILURE_RETRY(read(fifo, buf, MSG_SIZE))) < 0)
+            ERR("read data from FIFO");
         buf[strcspn(buf, "\n")] = 0;
-        int count = strlen(buf);
 
         if (count < MSG_SIZE)
             memset(buf + count, 0, MSG_SIZE - count);
@@ -57,6 +62,12 @@ void parent_work(int *fd)
             ERR("read data from R");
         printf("[%d] Node %d got message %s\n", getpid(), 0, buf);
     }
+
+    if (close(fifo) < 0)
+        ERR("close fifo:");
+
+    if (unlink("bus.fifo") < 0)
+        ERR("remove fifo:");
 }
 
 void create_children_and_pipes(int n, int *fds, int *R)
@@ -108,10 +119,15 @@ int main(int argc, char **argv)
     if (n <= 0 || n > 20)
         usage(argv[0]);
 
-    if (NULL == (fds = (int *)malloc(sizeof(int) * 2 * n)))
+    if (NULL == (fds = (int *)malloc(sizeof(int) * 2 * (n+1))))
         ERR("malloc");
     if (set_handler(sigchld_handler, SIGCHLD))
         ERR("Seting parent SIGCHLD:");
+
+    if (mkfifo("bus.fifo", S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP) < 0)
+        if (errno != EEXIST)
+            ERR("create fifo");
+
     create_children_and_pipes(n + 1, fds, R);
     parent_work(R);
 
