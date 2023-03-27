@@ -2,6 +2,13 @@
 
 #define MSG_SIZE 250
 
+volatile sig_atomic_t last_signal = 0;
+
+void sig_handler(int sig)
+{
+    last_signal = sig;
+}
+
 void usage(char *name)
 {
     fprintf(stderr, "USAGE: %s N\n", name);
@@ -16,9 +23,20 @@ void child_work(int n, int *fd)
     char buf[MSG_SIZE];
     int count;
 
-    for(;;) {
-        if ((count = TEMP_FAILURE_RETRY(read(fd[0], old_buf, MSG_SIZE))) < 0)
-            ERR("read data from R");
+    while(last_signal != SIGINT) {
+        count = read(fd[0], old_buf, MSG_SIZE);
+        if (count < 0 && errno == EINTR)
+            continue;
+        if (count < 0)
+            ERR("read header from R");
+        if (0 == count)
+            break;
+
+        if (rand() % 100 < 2){
+            printf("[%d] Node %d dying :(\n", getpid(), n);
+            kill(0, SIGINT);
+            break;
+        }
 
         if(old_buf[MSG_SIZE - 1] == '\0')
             count = strlen(old_buf);
@@ -34,6 +52,12 @@ void child_work(int n, int *fd)
 
         if (write(fd[1], buf, MSG_SIZE) < 0)
             ERR("write to R");
+
+        if (rand() % 100 < 2){
+            printf("[%d] Node %d dying :(\n", getpid(), n);
+            kill(0, SIGINT);
+            break;
+        }
     }
 }
 
@@ -46,9 +70,15 @@ void parent_work(int *fd)
         ERR("open");
 
     int count;
-    for(;;) {
-        if ((count = TEMP_FAILURE_RETRY(read(fifo, buf, MSG_SIZE))) < 0)
-            ERR("read data from FIFO");
+    while(last_signal != SIGINT) {
+        count = read(fifo, buf, MSG_SIZE);
+        if (count < 0 && errno == EINTR)
+            continue;
+        if (count < 0)
+            ERR("read header from R");
+        if (0 == count)
+            break;
+
         buf[strcspn(buf, "\n")] = 0;
 
         if (count < MSG_SIZE)
@@ -58,8 +88,14 @@ void parent_work(int *fd)
         if (write(fd[1], buf, MSG_SIZE) < 0)
             ERR("write to R");
 
-        if (TEMP_FAILURE_RETRY(read(fd[0], buf, MSG_SIZE)) < MSG_SIZE)
-            ERR("read data from R");
+        int count = read(fd[0], buf, MSG_SIZE);
+        if (count < 0 && errno == EINTR)
+            continue;
+        if (count < 0)
+            ERR("read header from R");
+        if (0 == count)
+            break;
+
         printf("[%d] Node %d got message %s\n", getpid(), 0, buf);
     }
 
@@ -123,6 +159,8 @@ int main(int argc, char **argv)
         ERR("malloc");
     if (set_handler(sigchld_handler, SIGCHLD))
         ERR("Seting parent SIGCHLD:");
+    if (set_handler(sig_handler, SIGINT))
+        ERR("Setting SIGINT");
 
     if (mkfifo("bus.fifo", S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP) < 0)
         if (errno != EEXIST)

@@ -55,6 +55,7 @@ int set_handler(void (*f)(int), int sigNo) {
 
 void sigchld_handler(int sig) {
     pid_t pid;
+    kill(0, SIGINT);
     for (;;) {
         pid = waitpid(0, NULL, WNOHANG);
         if (pid == 0)
