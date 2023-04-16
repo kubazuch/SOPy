@@ -6,18 +6,18 @@
 #define DISH_LEN 8
 #define MAX_MSG 10
 
-void client_work(mqd_t *dishes, mqd_t wd) {
+void client_work(mqd_t dish, mqd_t wd) {
     int pid = getpid();
     char mypid[MSG_LEN];
     snprintf(mypid, MSG_LEN, "%d", pid);
-    if(TEMP_FAILURE_RETRY(mq_send(dishes[0], mypid, MSG_LEN, 0)))
+    if(TEMP_FAILURE_RETRY(mq_send(dish, mypid, MSG_LEN, 0)))
         ERR("mq_send");
 
     char wydanie[MSG_LEN];
     int times = 0;
     for(;;) {
         if (times >= 5) {
-            printf("Ide do baru mlecznego\n");
+            printf("[%d] Ide do baru mlecznego\n", pid);
             exit(EXIT_SUCCESS);
         }
 
@@ -31,7 +31,7 @@ void client_work(mqd_t *dishes, mqd_t wd) {
         {
             if(errno == ETIMEDOUT)
             {
-                printf("Ide do baru mlecznego\n");
+                printf("[%d] Ide do baru mlecznego\n", pid);
                 exit(EXIT_SUCCESS);
             }
             ERR("mq receive");
@@ -39,30 +39,35 @@ void client_work(mqd_t *dishes, mqd_t wd) {
 
         if(strcmp(mypid, wydanie) == 0)
             break;
-
+        printf("[%d] %s to nie ja!\n", pid, wydanie);
         sleep(1);
         times++;
     }
-    printf("MNIAM\n");
+    printf("[%d] MNIAM\n", pid);
 }
 
 int main(int argc, char **argv)
 {
-    mqd_t d[D_NUM];
+    srand(getpid());
+    mqd_t d;
     mqd_t wd;
 
     struct mq_attr attr;
     attr.mq_maxmsg = MAX_MSG;
     attr.mq_msgsize = MSG_LEN;
 
-    if ((d[0] = TEMP_FAILURE_RETRY(mq_open("/DANIE1", O_RDWR | O_CREAT, 0600, &attr))) == (mqd_t)-1)
+    uint rand_order = rand() % D_NUM;
+    char dish_num[DISH_LEN];
+    snprintf(dish_num, DISH_LEN, "/DANIE%d", rand_order + 1);
+    if ((d = TEMP_FAILURE_RETRY(mq_open(dish_num, O_RDWR | O_CREAT, 0600, &attr))) == (mqd_t)-1)
         ERR("DANIE open in");
 
     if ((wd = TEMP_FAILURE_RETRY(mq_open("/WYDANIE", O_RDWR | O_CREAT, 0600, &attr))) == (mqd_t)-1)
         ERR("mq open in");
 
+    printf("[%d] Danie %d\n", getpid(), rand_order+1);
     client_work(d, wd);
-    mq_close(d[0]);
+    mq_close(d);
     mq_close(wd);
 
     return EXIT_SUCCESS;
