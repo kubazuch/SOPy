@@ -4,13 +4,28 @@
 #define MSG_LEN 35
 #define MAX_MSG 10
 
-void kitchen_work(mqd_t kasa, mqd_t wydanie) {
+volatile sig_atomic_t should_end = 0;
+void sigint_handler(int sig, siginfo_t *info, void *p)
+{
+    should_end = 1;
+}
+
+void handle_end(mqd_t kasa, mqd_t wydanie) {
+    struct mq_attr attr;
+    attr.mq_flags = O_NONBLOCK;
+    mq_setattr(kasa, &attr, NULL);
+
     char kasa_str[MSG_LEN];
     char wydanie_str[MSG_LEN];
-    for(;;) {
-        if(TEMP_FAILURE_RETRY(mq_receive(kasa, kasa_str, MSG_LEN, NULL)) < 0)
-            ERR("mq send");
+    for (;;) {
+        if (TEMP_FAILURE_RETRY(mq_receive(kasa, kasa_str, MSG_LEN, NULL)) < 0) {
+            if (errno == EAGAIN)
+                break;
+            else
+                ERR("mq_receive");
+        }
         printf("Kasa: %s\n", kasa_str);
+        sleep(2);
         char * space = strchr(kasa_str, ' ');
         *space = '\0';
         unsigned price = strtol(kasa_str, NULL, 10);
@@ -30,6 +45,53 @@ void kitchen_work(mqd_t kasa, mqd_t wydanie) {
     }
 }
 
+void kitchen_work(mqd_t kasa, mqd_t wydanie) {
+    char kasa_str[MSG_LEN];
+    char wydanie_str[MSG_LEN];
+    for(;;) {
+        if(should_end) {
+            handle_end(kasa, wydanie);
+            break;
+        }
+        struct timespec ts;
+        if (clock_gettime(CLOCK_REALTIME, &ts) < 0) {
+            ERR("clock_gettime()");
+        }
+
+        ts.tv_sec += 10;
+        if((mq_timedreceive(kasa, kasa_str, MSG_LEN, NULL, &ts)) < 0)
+        {
+            if(errno == ETIMEDOUT)
+            {
+                printf("Przekroczony czas oczekiwania\n");
+                break;
+            }
+            if(errno == EINTR)
+                continue;
+            ERR("mq receive");
+        }
+
+        printf("Kasa: %s\n", kasa_str);
+        sleep(2);
+        char * space = strchr(kasa_str, ' ');
+        *space = '\0';
+        unsigned price = strtol(kasa_str, NULL, 10);
+        switch (price) {
+            case 10:
+                snprintf(wydanie_str, MSG_LEN, "%s frytki", space+1);
+                break;
+            case 12:
+                snprintf(wydanie_str, MSG_LEN, "%s hotdog", space+1);
+                break;
+            case 5:
+                snprintf(wydanie_str, MSG_LEN, "%s cola", space+1);
+                break;
+        }
+        if((mq_send(wydanie, wydanie_str, MSG_LEN, 0)) < 0)
+            ERR("mq send");
+    }
+}
+
 int main(int argc, char **argv)
 {
     mqd_t menu, kasa, wydanie;
@@ -38,9 +100,7 @@ int main(int argc, char **argv)
     attr.mq_maxmsg = MAX_MSG;
     attr.mq_msgsize = MSG_LEN;
 
-    // DEBUG
-    mq_unlink("/MENU");
-    mq_unlink("/KASA");
+    set_handler(sigint_handler, SIGINT);
 
     if ((menu = TEMP_FAILURE_RETRY(mq_open("/MENU", O_RDWR | O_CREAT, 0600, &attr))) == (mqd_t)-1)
         ERR("mq open menu");
