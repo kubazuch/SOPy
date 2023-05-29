@@ -50,11 +50,10 @@ int sleepms(unsigned milisec) {
     return safesleep(req);
 }
 
-int set_handler(void (*f)(int, siginfo_t *, void *), int sigNo) {
+int set_handler(void (*f)(int), int sigNo) {
     struct sigaction act;
     memset(&act, 0, sizeof(struct sigaction));
-    act.sa_sigaction = f;
-    act.sa_flags = SA_SIGINFO;
+    act.sa_handler = f;
     if (-1 == sigaction(sigNo, &act, NULL))
         return -1;
     return 0;
