@@ -1,7 +1,6 @@
 #include "../utils.h"
 
 #define BACKLOG 3
-
 volatile sig_atomic_t do_work = 1;
 
 void sigint_handler(int sig)
@@ -42,32 +41,42 @@ void calculate(int32_t data[5])
     data[2] = htonl(result);
 }
 
-void doServer(int fdL)
+void communicate(int cfd)
 {
-    int cfd;
-    int32_t data[5];
     ssize_t size;
+    int32_t data[5];
+    if ((size = bulk_read(cfd, (char *)data, sizeof(int32_t[5]))) < 0)
+        ERR("read:");
+    if (size == (int)sizeof(int32_t[5])) {
+        calculate(data);
+        if (bulk_write(cfd, (char *)data, sizeof(int32_t[5])) < 0 && errno != EPIPE)
+            ERR("write:");
+    }
+    if (TEMP_FAILURE_RETRY(close(cfd)) < 0)
+        ERR("close");
+}
+
+void doServer(int fdL, int fdT)
+{
+    int cfd, fdmax;
     fd_set base_rfds, rfds;
     sigset_t mask, oldmask;
     FD_ZERO(&base_rfds);
     FD_SET(fdL, &base_rfds);
+    FD_SET(fdT, &base_rfds);
+    fdmax = (fdT > fdL ? fdT : fdL);
     sigemptyset(&mask);
     sigaddset(&mask, SIGINT);
     sigprocmask(SIG_BLOCK, &mask, &oldmask);
     while (do_work) {
         rfds = base_rfds;
-        if (pselect(fdL + 1, &rfds, NULL, NULL, NULL, &oldmask) > 0) {
-            if ((cfd = add_new_client(fdL)) >= 0) {
-                if ((size = bulk_read(cfd, (char *)data, sizeof(int32_t[5]))) < 0)
-                    ERR("read:");
-                if (size == (int)sizeof(int32_t[5])) {
-                    calculate(data);
-                    if (bulk_write(cfd, (char *)data, sizeof(int32_t[5])) < 0 && errno != EPIPE)
-                        ERR("write:");
-                }
-                if (TEMP_FAILURE_RETRY(close(cfd)) < 0)
-                    ERR("close");
-            }
+        if (pselect(fdmax + 1, &rfds, NULL, NULL, NULL, &oldmask) > 0) {
+            if (FD_ISSET(fdL, &rfds))
+                cfd = add_new_client(fdL);
+            else
+                cfd = add_new_client(fdT);
+            if (cfd >= 0)
+                communicate(cfd);
         } else {
             if (EINTR == errno)
                 continue;
@@ -79,7 +88,7 @@ void doServer(int fdL)
 
 int main(int argc, char **argv)
 {
-    int fdL;
+    int fdL, fdT;
     int new_flags;
     if (argc != 3) {
         usage(argv[0]);
@@ -92,11 +101,16 @@ int main(int argc, char **argv)
     fdL = bind_socket_local(argv[1], SOCK_STREAM, BACKLOG);
     new_flags = fcntl(fdL, F_GETFL) | O_NONBLOCK;
     fcntl(fdL, F_SETFL, new_flags);
-    doServer(fdL);
+    fdT = bind_socket_tcp(atoi(argv[2]), BACKLOG);
+    new_flags = fcntl(fdT, F_GETFL) | O_NONBLOCK;
+    fcntl(fdT, F_SETFL, new_flags);
+    doServer(fdL, fdT);
     if (TEMP_FAILURE_RETRY(close(fdL)) < 0)
         ERR("close");
     if (unlink(argv[1]) < 0)
         ERR("unlink");
+    if (TEMP_FAILURE_RETRY(close(fdT)) < 0)
+        ERR("close");
     fprintf(stderr, "Server has terminated.\n");
     return EXIT_SUCCESS;
 }
