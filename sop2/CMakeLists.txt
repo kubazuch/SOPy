@@ -14,6 +14,7 @@ add_executable(lab1.exmpl "lab1 tut/example/prog.c")
 add_executable(lab2.tut "lab2 tut/tut/mq_example.c")
 add_executable(lab2.isi.s "lab2 tut/isi/server.c")
 add_executable(lab2.isi.c "lab2 tut/isi/client.c")
+add_executable(lab3.tut.s "lab3 tut/tut/prog23a_s.c")
 
 
 target_link_libraries(lab2.tut rt)
