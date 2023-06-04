@@ -13,6 +13,7 @@
 #include <sys/sysmacros.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/time.h>
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <unistd.h>
@@ -137,9 +138,9 @@ int bind_socket_tcp(uint16_t port, int backlog) {
     addr.sin_family = AF_INET;
     addr.sin_port = htons(port);
     addr.sin_addr.s_addr = htonl(INADDR_ANY);
+
     if (setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, &t, sizeof(t)))
         ERR("setsockopt");
-
     if (bind(socketfd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
         ERR("bind");
     if (listen(socketfd, backlog) < 0)
@@ -174,6 +175,33 @@ int connect_socket_tcp(char *name, char *port) {
                 ERR("connect");
         }
     }
+
+    return socketfd;
+}
+
+// UDP Sockets
+int make_socket_udp(void) {
+    int socketfd;
+    if ((socketfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
+        ERR("socket");
+
+    return socketfd;
+}
+
+int bind_socket_udp(uint16_t port) {
+    struct sockaddr_in addr;
+    int socketfd, t = 1;
+    socketfd = make_socket_udp();
+
+    memset(&addr, 0, sizeof(struct sockaddr_in));
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(port);
+    addr.sin_addr.s_addr = htonl(INADDR_ANY);
+
+    if (setsockopt(socketfd, SOL_SOCKET, SO_REUSEADDR, &t, sizeof(t)))
+        ERR("setsockopt");
+    if (bind(socketfd, (struct sockaddr *)&addr, sizeof(addr)) < 0)
+        ERR("bind");
 
     return socketfd;
 }
